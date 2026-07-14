@@ -242,6 +242,32 @@ body {
   color: var(--ki-lab-blue-soft);
 }
 
+.care-example {
+  margin-top: 0.4rem !important;
+  padding: 0.5rem 0.65rem;
+  border-radius: 8px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  font-size: 0.8rem !important;
+  font-style: italic;
+  color: var(--ki-lab-blue-soft) !important;
+}
+
+.care-golden-rule {
+  margin-top: 1.15rem;
+  padding: 0.85rem 0.9rem;
+  border-radius: var(--radius);
+  background: linear-gradient(135deg, var(--ki-lab-blue), #1a5fa8);
+  color: #fff;
+  font-size: 0.83rem;
+  line-height: 1.5;
+}
+
+.care-golden-rule strong {
+  display: block;
+  margin-bottom: 0.2rem;
+}
+
 .app-main {
   min-width: 0;
 }
