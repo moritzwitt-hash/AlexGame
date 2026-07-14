@@ -51,6 +51,7 @@ async function callJudge(alexResponse) {
     },
     body: JSON.stringify({
       model: JUDGE_MODEL,
+      reasoning_effort: "low",
       messages: [
         { role: "system", content: system },
         {
