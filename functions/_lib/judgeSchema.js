@@ -1,8 +1,9 @@
 // JSON-Schema fuer den Judge-Output (siehe PLAN Abschnitt 5b).
-// Wird per output_config.format (Structured Outputs) erzwungen -- garantiert
-// gueltiges JSON, das als Text-Block zurueckkommt (response.content[0].text)
-// und selbst per JSON.parse() geparst wird. Verifiziert gegen die offizielle
-// Anthropic-Doku am 2026-07-14, siehe PLAN Abschnitt 5b.
+// Wird per response_format (Structured Outputs, strict: true) bei der OpenAI
+// Chat-Completions-API erzwungen -- garantiert gueltiges JSON, das als
+// JSON-String in choices[0].message.content zurueckkommt und selbst per
+// JSON.parse() geparst wird. Verifiziert gegen die offizielle OpenAI-Doku
+// am 2026-07-14, siehe PLAN Abschnitt 5b.
 
 export const JUDGE_SCHEMA = {
   type: "object",

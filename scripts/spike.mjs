@@ -1,14 +1,16 @@
 // Phase 0 Spike (siehe PLAN Abschnitt 7): beweist, dass ein echter Judge-Call
-// gegen die Anthropic-API mit unserem Schema/Prompt/Modellpaar funktioniert,
+// gegen die OpenAI-API mit unserem Schema/Prompt/Modellpaar funktioniert,
 // bevor auf 5 Level skaliert wird.
 //
-// Aufruf: ANTHROPIC_API_KEY=sk-ant-... node scripts/spike.mjs
+// Aufruf: OPENAI_API_KEY=sk-... node scripts/spike.mjs
 
-const API_KEY = process.env.ANTHROPIC_API_KEY;
+const API_KEY = process.env.OPENAI_API_KEY;
 if (!API_KEY) {
-  console.error("Fehler: ANTHROPIC_API_KEY ist nicht gesetzt.");
+  console.error("Fehler: OPENAI_API_KEY ist nicht gesetzt.");
   process.exit(1);
 }
+
+const JUDGE_MODEL = "gpt-5.6-sol";
 
 const JUDGE_SCHEMA = {
   type: "object",
@@ -40,24 +42,26 @@ const LEVEL_1_RUBRIC =
 
 async function callJudge(alexResponse) {
   const system = JUDGE_BASE_INSTRUCTION + "\n\nKRITERIEN FUER DIESES LEVEL:\n" + LEVEL_1_RUBRIC;
-  const res = await fetch("https://api.anthropic.com/v1/messages", {
+
+  const res = await fetch("https://api.openai.com/v1/chat/completions", {
     method: "POST",
     headers: {
       "content-type": "application/json",
-      "x-api-key": API_KEY,
-      "anthropic-version": "2023-06-01",
+      authorization: `Bearer ${API_KEY}`,
     },
     body: JSON.stringify({
-      model: "claude-sonnet-5",
-      max_tokens: 300,
-      system,
+      model: JUDGE_MODEL,
       messages: [
+        { role: "system", content: system },
         {
           role: "user",
           content: `Hier ist die Antwort von Alex, die bewertet werden soll:\n\n---\n${alexResponse}\n---`,
         },
       ],
-      output_config: { format: { type: "json_schema", schema: JUDGE_SCHEMA } },
+      response_format: {
+        type: "json_schema",
+        json_schema: { name: "care_judge_verdict", schema: JUDGE_SCHEMA, strict: true },
+      },
     }),
   });
 
@@ -67,11 +71,11 @@ async function callJudge(alexResponse) {
   }
 
   const data = await res.json();
-  const block = data.content.find((b) => b.type === "text");
-  if (!block) {
-    throw new Error(`Kein text-Block in der Antwort gefunden. Rohe content: ${JSON.stringify(data.content)}`);
+  const content = data.choices?.[0]?.message?.content;
+  if (!content) {
+    throw new Error(`Kein content-Feld in der Antwort gefunden. Rohe choices: ${JSON.stringify(data.choices)}`);
   }
-  return JSON.parse(block.text);
+  return JSON.parse(content);
 }
 
 const FAIL_CASE =
@@ -82,7 +86,7 @@ const PASS_CASE =
   "Wir freuen uns, Ihnen anlaesslich Ihrer Anfrage vom 3. Maerz ein individuelles Angebot zu erstellen.";
 
 async function main() {
-  console.log("Phase 0 Spike -- verifiziert Judge-Call gegen echte Anthropic-API\n");
+  console.log("Phase 0 Spike -- verifiziert Judge-Call gegen echte OpenAI-API\n");
 
   let failResult, passResult;
   let failError = null, passError = null;

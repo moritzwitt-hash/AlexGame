@@ -4,7 +4,7 @@
 // Alex-System-Prompt zu sehen -- nur { alexResponse, pass, hint }.
 
 import { getLevelById } from "../_lib/levels.config.js";
-import { callAlex, callJudge, AnthropicCallError } from "../_lib/anthropic.js";
+import { callAlex, callJudge, OpenAICallError } from "../_lib/openai.js";
 
 const MAX_PROMPT_LENGTH = 4000;
 
@@ -55,9 +55,9 @@ export async function onRequestPost({ request, env }) {
     return jsonResponse({ error: `Unbekanntes Level: ${levelId}` }, 404);
   }
 
-  if (!env.ANTHROPIC_API_KEY) {
+  if (!env.OPENAI_API_KEY) {
     // Sollte im Betrieb nie auftreten (Secret ist Teil der Deploy-Checkliste,
-    // PLAN Abschnitt 8) -- klarer Fehler statt kryptischem 401 der Anthropic API.
+    // PLAN Abschnitt 8) -- klarer Fehler statt kryptischem 401 der OpenAI API.
     return jsonResponse({ error: "Server ist nicht korrekt konfiguriert (fehlender API-Key)." }, 500);
   }
 
@@ -68,7 +68,7 @@ export async function onRequestPost({ request, env }) {
 
     return jsonResponse({ alexResponse, pass: judgeVerdict.pass, hint });
   } catch (err) {
-    if (err instanceof AnthropicCallError) {
+    if (err instanceof OpenAICallError) {
       // Notfallplan (PLAN Abschnitt 8): freundliche Fehlermeldung, Frontend
       // zeigt bei retryable=true einen Retry-Button.
       return jsonResponse(
