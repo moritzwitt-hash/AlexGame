@@ -1,0 +1,14 @@
+{
+  "name": "care-game",
+  "private": true,
+  "version": "0.1.0",
+  "description": "CARE-Prompting-Lernspiel fuer TCW Fuehrungskraefte-Training",
+  "scripts": {
+    "dev": "wrangler pages dev . --compatibility-date=2026-07-14",
+    "deploy": "wrangler pages deploy .",
+    "spike": "node scripts/spike.mjs"
+  },
+  "devDependencies": {
+    "wrangler": "^4.0.0"
+  }
+}

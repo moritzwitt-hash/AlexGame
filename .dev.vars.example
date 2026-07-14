@@ -1,0 +1,3 @@
+# Kopiere diese Datei zu ".dev.vars" (bereits in .gitignore) und trage deinen
+# echten Anthropic-API-Key ein. NIE die echte .dev.vars committen.
+ANTHROPIC_API_KEY=sk-ant-...

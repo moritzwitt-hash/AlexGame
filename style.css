@@ -1,0 +1,226 @@
+/* KI-Lab-Branding (siehe PLAN Abschnitt 2 "Branding (KI Lab)"):
+   klares, kraeftiges Blau auf hellem Hintergrund, minimalistisch. */
+
+:root {
+  --ki-lab-blue: #1a6fc4;
+  --ki-lab-blue-dark: #0f4d8f;
+  --ki-lab-blue-light: #e8f1fb;
+  --ki-lab-blue-pale: #f3f8fd;
+  --text: #1c2530;
+  --text-muted: #5a6472;
+  --border: #d7e2ee;
+  --success: #1a8f5e;
+  --error: #c0392b;
+  --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font);
+  color: var(--text);
+  background: var(--ki-lab-blue-pale);
+}
+
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1.5rem;
+  background: #fff;
+  border-bottom: 1px solid var(--border);
+}
+
+.brand-logo {
+  height: 32px;
+  display: block;
+}
+
+.care-progress {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.care-step {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border: 2px solid var(--border);
+  color: var(--text-muted);
+  background: #fff;
+}
+
+.care-step.current {
+  border-color: var(--ki-lab-blue);
+  color: var(--ki-lab-blue);
+}
+
+.care-step.done {
+  border-color: var(--ki-lab-blue);
+  background: var(--ki-lab-blue);
+  color: #fff;
+}
+
+.app-main {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 2rem 1.25rem 4rem;
+}
+
+.loading {
+  color: var(--text-muted);
+  text-align: center;
+  margin-top: 3rem;
+}
+
+.level-card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.75rem;
+}
+
+.level-title {
+  margin: 0 0 0.5rem;
+  font-size: 1.35rem;
+  color: var(--ki-lab-blue-dark);
+}
+
+.level-intro {
+  margin: 0 0 0.75rem;
+  line-height: 1.5;
+}
+
+.level-goal {
+  margin: 0 0 1rem;
+  padding: 0.75rem 1rem;
+  background: var(--ki-lab-blue-light);
+  border-radius: 8px;
+  font-size: 0.92rem;
+  color: var(--ki-lab-blue-dark);
+}
+
+.prompt-input {
+  width: 100%;
+  min-height: 120px;
+  padding: 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-family: var(--font);
+  font-size: 0.95rem;
+  resize: vertical;
+}
+
+.prompt-input:focus {
+  outline: none;
+  border-color: var(--ki-lab-blue);
+  box-shadow: 0 0 0 3px var(--ki-lab-blue-light);
+}
+
+.actions {
+  margin-top: 1rem;
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+button {
+  font-family: var(--font);
+  font-size: 0.95rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  padding: 0.65rem 1.25rem;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background: var(--ki-lab-blue);
+  color: #fff;
+}
+
+.btn-primary:disabled {
+  background: var(--border);
+  color: var(--text-muted);
+  cursor: not-allowed;
+}
+
+.btn-secondary {
+  background: #fff;
+  color: var(--ki-lab-blue);
+  border: 1px solid var(--ki-lab-blue);
+}
+
+.spinner-text {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.alex-response {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  border-radius: 8px;
+  background: #f7f9fb;
+  border-left: 4px solid var(--ki-lab-blue);
+}
+
+.alex-response-label {
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: var(--ki-lab-blue-dark);
+  margin-bottom: 0.4rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.alex-response-text {
+  white-space: pre-wrap;
+  line-height: 1.5;
+}
+
+.feedback {
+  margin-top: 1rem;
+  padding: 0.9rem 1rem;
+  border-radius: 8px;
+  font-size: 0.95rem;
+}
+
+.feedback.pass {
+  background: #eaf7f1;
+  color: var(--success);
+  border: 1px solid #bfe6d3;
+}
+
+.feedback.fail {
+  background: #fdf3f2;
+  color: var(--error);
+  border: 1px solid #f2cec8;
+}
+
+.hint {
+  margin-top: 0.6rem;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.error-box {
+  margin-top: 1rem;
+  padding: 0.9rem 1rem;
+  border-radius: 8px;
+  background: #fdf3f2;
+  border: 1px solid #f2cec8;
+  color: var(--error);
+}
+
+.finished-card {
+  text-align: center;
+  padding: 2rem;
+}
