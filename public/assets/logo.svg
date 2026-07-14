@@ -1,7 +1,12 @@
-<!-- PLATZHALTER-LOGO: Bitte durch die echte KI-Lab-Logo-Datei ersetzen (siehe PLAN Abschnitt 2 "Branding (KI Lab)"). -->
-<svg width="140" height="32" viewBox="0 0 140 32" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="KI Lab">
-  <circle cx="16" cy="16" r="14" fill="none" stroke="#1a6fc4" stroke-width="2.5" />
-  <path d="M16 8 v6 l-4 6 h8 l-4-6" fill="none" stroke="#1a6fc4" stroke-width="2" stroke-linejoin="round" />
-  <text x="38" y="22" font-family="-apple-system, 'Segoe UI', sans-serif" font-size="18" font-weight="700" fill="#1a6fc4">KI</text>
-  <text x="60" y="22" font-family="-apple-system, 'Segoe UI', sans-serif" font-size="18" font-weight="400" fill="#1a6fc4">LAB</text>
+<!-- KI-Lab-Logo, nachgezeichnet aus der bereitgestellten Bilddatei (Kreis-Icon mit
+     Molekuel-/Sechseck-Motiv + "KI" fett / "LAB" schlank). -->
+<svg width="180" height="34" viewBox="0 0 210 40" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="KI Lab">
+  <g transform="translate(2,2)" fill="none" stroke="#1a6fc4" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="18" cy="18" r="14" stroke-width="2.4" />
+    <path d="M18,11 L23.2,14 L23.2,20 L18,23 L12.8,20 L12.8,14 Z" stroke-width="2" />
+    <line x1="18" y1="11" x2="11" y2="4" stroke-width="2" />
+    <line x1="18" y1="23" x2="18" y2="33" stroke-width="2" />
+  </g>
+  <text x="46" y="27" font-family="-apple-system, 'Segoe UI', Arial, sans-serif" font-size="26" font-weight="800" fill="#1a6fc4">KI</text>
+  <text x="90" y="27" font-family="-apple-system, 'Segoe UI', Arial, sans-serif" font-size="26" font-weight="400" fill="#1a6fc4" opacity="0.92">LAB</text>
 </svg>

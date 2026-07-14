@@ -5,21 +5,24 @@
 // Build-Schritt auch auf aelteren Browsern laeuft (siehe PLAN Abschnitt 9,
 // offene Frage Browser-Kompatibilitaet).
 
+const DOT_LOADER = '<span class="dot-loader"><span></span><span></span><span></span></span>';
+
 function renderCareProgress(container, { levels, currentLevelIndex, completed }) {
   container.innerHTML = "";
   levels.forEach((level, index) => {
     const step = document.createElement("div");
     step.className = "care-step";
-    if (completed[level.id]) step.classList.add("done");
+    const isDone = Boolean(completed[level.id]);
+    if (isDone) step.classList.add("done");
     else if (index === currentLevelIndex) step.classList.add("current");
-    step.textContent = level.careLetter === "BOSS" ? "★" : level.careLetter;
+    step.textContent = isDone ? "✓" : level.careLetter === "BOSS" ? "★" : level.careLetter;
     step.title = level.title;
     container.appendChild(step);
   });
 }
 
 function renderLoading(container) {
-  container.innerHTML = `<p class="loading">Lade Level ...</p>`;
+  container.innerHTML = `<div class="loading">${DOT_LOADER}<span>Level werden geladen</span></div>`;
 }
 
 function renderFinished(container) {
@@ -56,9 +59,8 @@ function renderLevelCard(container, level, viewState, handlers) {
 
       <div class="actions">
         <button id="submit-btn" class="btn-primary" ${loading ? "disabled" : ""}>
-          ${loading ? "Alex antwortet ..." : "An Alex senden"}
+          ${loading ? `${DOT_LOADER}<span>Alex antwortet</span>` : "An Alex senden"}
         </button>
-        ${loading ? '<span class="spinner-text">Bitte einen Moment Geduld ...</span>' : ""}
       </div>
 
       <div id="result-area"></div>
