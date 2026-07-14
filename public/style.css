@@ -284,6 +284,36 @@ body {
   color: var(--ki-lab-blue-soft);
 }
 
+.prompt-so-far {
+  margin-bottom: 1.1rem;
+  padding: 0.9rem 1rem;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px dashed var(--border-strong);
+}
+
+.prompt-so-far-label {
+  font-weight: 700;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--text-muted);
+  margin-bottom: 0.45rem;
+}
+
+.prompt-so-far-text {
+  font-family: var(--font-mono);
+  font-size: 0.88rem;
+  line-height: 1.55;
+  color: var(--text);
+  white-space: pre-wrap;
+}
+
+.recap-card {
+  border-color: var(--ki-lab-blue);
+  box-shadow: 0 20px 60px -20px rgba(0, 0, 0, 0.6), 0 0 40px -10px var(--ki-lab-blue-glow);
+}
+
 .prompt-input {
   width: 100%;
   min-height: 120px;

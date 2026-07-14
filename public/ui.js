@@ -38,11 +38,24 @@ function renderFinished(container) {
  * Rendert die aktuelle Level-Karte inkl. Eingabefeld, Alex-Antwort,
  * Feedback/Hint und Fehleranzeige.
  *
- * viewState: { attemptNo, loading, alexResponse, pass, hint, error, retryable, draft }
+ * viewState: { attemptNo, loading, alexResponse, pass, hint, error, retryable, draft, priorSegments }
  * handlers: { onSubmit(promptText), onRetry() }
  */
 function renderLevelCard(container, level, viewState, handlers) {
-  const { loading, alexResponse, pass, hint, error, retryable, draft } = viewState;
+  const { loading, alexResponse, pass, hint, error, retryable, draft, priorSegments } = viewState;
+
+  const hasPrior = Array.isArray(priorSegments) && priorSegments.length > 0;
+  const priorBlock = hasPrior
+    ? `
+      <div class="prompt-so-far">
+        <div class="prompt-so-far-label">Dein Prompt bisher</div>
+        <div class="prompt-so-far-text">${escapeHtml(priorSegments.join(" "))}</div>
+      </div>
+    `
+    : "";
+  const textareaPlaceholder = hasPrior
+    ? "Ergaenze den naechsten Teil ..."
+    : "Schreib deinen Prompt an Alex ...";
 
   container.innerHTML = `
     <div class="level-card">
@@ -50,10 +63,12 @@ function renderLevelCard(container, level, viewState, handlers) {
       <p class="level-intro">${escapeHtml(level.introText)}</p>
       <p class="level-goal">${escapeHtml(level.goalText)}</p>
 
+      ${priorBlock}
+
       <textarea
         id="prompt-input"
         class="prompt-input"
-        placeholder="Schreib deinen Prompt an Alex ..."
+        placeholder="${textareaPlaceholder}"
         ${loading ? "disabled" : ""}
       ></textarea>
 
@@ -113,6 +128,28 @@ function renderLevelCard(container, level, viewState, handlers) {
     const nextBtn = resultArea.querySelector("#next-btn");
     if (nextBtn) nextBtn.addEventListener("click", handlers.onNext);
   }
+}
+
+/** Zeigt den fertig zusammengebauten Prompt nach dem letzten cumulative Level. */
+function renderPromptRecap(container, fullPrompt, onContinue) {
+  container.innerHTML = `
+    <div class="level-card recap-card">
+      <h2 class="level-title">Das ist dein vollstaendiger Prompt</h2>
+      <p class="level-intro">
+        Stueck fuer Stueck aufgebaut: Kontext, eine klare Ask, Regeln und ein Beispiel,
+        alles zusammen in einem Prompt.
+      </p>
+      <div class="prompt-so-far">
+        <div class="prompt-so-far-label">Dein vollstaendiger Prompt</div>
+        <div class="prompt-so-far-text">${escapeHtml(fullPrompt)}</div>
+      </div>
+      <div class="actions">
+        <button id="recap-continue-btn" class="btn-primary">Weiter zum Boss-Level →</button>
+      </div>
+    </div>
+  `;
+
+  container.querySelector("#recap-continue-btn").addEventListener("click", onContinue);
 }
 
 function escapeHtml(str) {
