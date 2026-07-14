@@ -336,6 +336,7 @@ body {
   border-radius: 10px;
   font-size: 0.92rem;
   color: var(--ki-lab-blue-soft);
+  white-space: pre-line;
 }
 
 .prompt-so-far {
