@@ -53,6 +53,14 @@ function renderLevelCard(container, level, viewState, handlers) {
       </div>
     `
     : "";
+  const sourceMaterialBlock = level.sourceMaterial
+    ? `
+      <div class="prompt-so-far">
+        <div class="prompt-so-far-label">Rohe Meeting-Notizen</div>
+        <div class="prompt-so-far-text">${escapeHtml(level.sourceMaterial)}</div>
+      </div>
+    `
+    : "";
   const textareaPlaceholder = hasPrior
     ? "Ergaenze den naechsten Teil ..."
     : "Schreib deinen Prompt an Alex ...";
@@ -63,6 +71,7 @@ function renderLevelCard(container, level, viewState, handlers) {
       <p class="level-intro">${escapeHtml(level.introText)}</p>
       <p class="level-goal">${escapeHtml(level.goalText)}</p>
 
+      ${sourceMaterialBlock}
       ${priorBlock}
 
       <textarea
