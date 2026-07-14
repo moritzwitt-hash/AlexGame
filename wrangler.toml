@@ -1,3 +1,7 @@
 name = "care-game"
+main = "worker.js"
 compatibility_date = "2026-07-14"
-pages_build_output_dir = "."
+
+[assets]
+directory = "./public"
+binding = "ASSETS"

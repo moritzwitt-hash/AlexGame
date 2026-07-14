@@ -1,6 +1,6 @@
 // Game-State-Machine, Level-Navigation, localStorage, fetch-Calls.
 // Siehe PLAN Abschnitt 1/3/7 (Phase 1-4). Kennt NUR public Level-Felder --
-// Rubrik/Persona-Fallen bleiben serverseitig (functions/_lib/levels.config.js).
+// Rubrik/Persona-Fallen bleiben serverseitig (lib/levels.config.js).
 
 const STORAGE_KEY = "care_game_state_v1";
 const REQUEST_TIMEOUT_MS = 25_000; // etwas grosszuegiger als das Backend-Timeout (20s)
