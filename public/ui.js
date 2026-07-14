@@ -61,6 +61,18 @@ function renderLevelCard(container, level, viewState, handlers) {
       </div>
     `
     : "";
+  const emailBlock = level.email
+    ? `
+      <div class="email-card">
+        <div class="email-card-label">✉ Eingegangene Mail</div>
+        <div class="email-card-header">
+          <div><span class="email-card-field">Von:</span> ${escapeHtml(level.email.from)}</div>
+          <div><span class="email-card-field">Betreff:</span> ${escapeHtml(level.email.subject)}</div>
+        </div>
+        <div class="email-card-body">${escapeHtml(level.email.body)}</div>
+      </div>
+    `
+    : "";
   const textareaPlaceholder = hasPrior
     ? "Ergaenze den naechsten Teil ..."
     : "Schreib deinen Prompt an Alex ...";
@@ -71,6 +83,7 @@ function renderLevelCard(container, level, viewState, handlers) {
       <p class="level-intro">${escapeHtml(level.introText)}</p>
       <p class="level-goal">${escapeHtml(level.goalText)}</p>
 
+      ${emailBlock}
       ${sourceMaterialBlock}
       ${priorBlock}
 

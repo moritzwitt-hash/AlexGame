@@ -368,6 +368,50 @@ body {
   box-shadow: 0 20px 60px -20px rgba(0, 0, 0, 0.6), 0 0 40px -10px var(--ki-lab-blue-glow);
 }
 
+.email-card {
+  margin: 1.1rem 0;
+  border-radius: var(--radius);
+  border: 1px solid var(--border-strong);
+  background: var(--surface-strong);
+  overflow: hidden;
+  box-shadow: 0 14px 34px -14px rgba(0, 0, 0, 0.55);
+}
+
+.email-card-label {
+  padding: 0.5rem 0.9rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--ki-lab-blue-soft);
+  background: rgba(47, 140, 230, 0.1);
+  border-bottom: 1px solid var(--border);
+}
+
+.email-card-header {
+  padding: 0.75rem 0.9rem;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.83rem;
+  color: var(--text);
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.email-card-field {
+  color: var(--text-muted);
+  font-weight: 600;
+  margin-right: 0.3rem;
+}
+
+.email-card-body {
+  padding: 0.95rem 0.9rem;
+  font-size: 0.87rem;
+  line-height: 1.6;
+  color: var(--text);
+  white-space: pre-wrap;
+}
+
 .prompt-input {
   width: 100%;
   min-height: 120px;
