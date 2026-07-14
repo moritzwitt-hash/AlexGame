@@ -245,7 +245,7 @@ body {
 .care-example {
   margin-top: 0.4rem !important;
   padding: 0.5rem 0.65rem;
-  border-radius: 8px;
+  border-radius: 10px;
   background: var(--surface);
   border: 1px solid var(--border);
   font-size: 0.8rem !important;
@@ -456,7 +456,10 @@ button {
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, var(--ki-lab-blue), #1f6fc9);
+  /* Verlauf bewusst dunkler als --ki-lab-blue: weisser Text braucht ueberall im
+     Verlauf mind. 4.5:1 Kontrast (WCAG AA), das helle Markenblau alleine reicht
+     dafuer am oberen Verlaufsende nicht (~3.5:1). */
+  background: linear-gradient(135deg, #2367ab, #164f8f);
   color: #fff;
   display: inline-flex;
   align-items: center;
@@ -467,6 +470,11 @@ button {
 .btn-primary:not(:disabled):hover {
   transform: translateY(-1px);
   box-shadow: 0 10px 28px -6px var(--ki-lab-blue-glow);
+}
+
+.btn-primary:not(:disabled):active {
+  transform: translateY(0) scale(0.98);
+  box-shadow: 0 4px 14px -6px var(--ki-lab-blue-glow);
 }
 
 .btn-primary:disabled {
@@ -485,6 +493,15 @@ button {
 .btn-secondary:hover {
   border-color: var(--ki-lab-blue);
   background: rgba(47, 140, 230, 0.08);
+}
+
+.btn-secondary:active {
+  transform: scale(0.98);
+}
+
+button:focus-visible {
+  outline: 2px solid var(--ki-lab-blue);
+  outline-offset: 2px;
 }
 
 .alex-response {
