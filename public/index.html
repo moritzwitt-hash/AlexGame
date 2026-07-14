@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="color-scheme" content="dark" />
   <meta name="theme-color" content="#060910" />
-  <title>CARE-Prompting-Lernspiel — KI Lab</title>
+  <title>CARE-Prompting-Lernspiel: KI Lab</title>
   <link rel="icon" href="assets/logo.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="style.css" />
 </head>
@@ -17,9 +17,24 @@
     <nav class="care-progress" id="care-progress" aria-label="Fortschritt"></nav>
   </header>
 
-  <main id="app" class="app-main">
-    <p class="loading">Lade Level ...</p>
-  </main>
+  <div class="layout">
+    <aside class="sidebar">
+      <h2 class="sidebar-title">Wer ist Alex?</h2>
+      <p>Alex ist der neue Werkstudent. Hochbegabt, aber komplett neu im Unternehmen. Er denkt scharf nach, sobald er eine Aufgabe verstanden hat, nimmt aber alles beim Wort.</p>
+      <p>Sagst du ihm nicht genau, was du willst, füllt er die Lücken auf seine Art. Meistens nicht so, wie du es meinst.</p>
+      <div class="sidebar-divider"></div>
+      <h3 class="sidebar-subtitle">So läuft's</h3>
+      <ol class="sidebar-steps">
+        <li>Du schreibst Alex eine Anweisung.</li>
+        <li>Er antwortet sofort, genau wie du es formulierst.</li>
+        <li>Passt es noch nicht, bekommst du einen Tipp und probierst es nochmal.</li>
+      </ol>
+    </aside>
+
+    <main id="app" class="app-main">
+      <p class="loading">Lade Level ...</p>
+    </main>
+  </div>
 
   <script src="ui.js"></script>
   <script src="app.js"></script>

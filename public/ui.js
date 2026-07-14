@@ -92,7 +92,7 @@ function renderLevelCard(container, level, viewState, handlers) {
     const feedbackClass = pass ? "pass" : "fail";
     const feedbackText = pass
       ? "Treffer! Alex hat geliefert, was gebraucht wurde."
-      : "Noch nicht ganz -- schau dir Alex' Antwort an und probier's nochmal.";
+      : "Noch nicht ganz. Schau dir Alex' Antwort an und probier's nochmal.";
 
     resultArea.innerHTML = `
       <div class="alex-response">
