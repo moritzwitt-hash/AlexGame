@@ -6,12 +6,12 @@
 // Level 1-4 sind "cumulative" -- der Spieler tippt pro Level nur den NEUEN
 // Teil, vorherige Teile werden nur noch angezeigt. Beim Absenden wird der
 // volle Prompt (bisherige Teile + neuer Teil) an /api/attempt geschickt --
-// das Backend sieht nur einen laengeren playerPrompt-String, es aendert
+// das Backend sieht nur einen längeren playerPrompt-String, es ändert
 // sich dort nichts. Nach dem letzten cumulative Level gibt es einen kurzen
 // Recap-Screen, der den fertigen Prompt zeigt, bevor es zum Boss-Level geht.
 
 const STORAGE_KEY = "care_game_state_v2";
-const REQUEST_TIMEOUT_MS = 25_000; // etwas grosszuegiger als das Backend-Timeout (20s)
+const REQUEST_TIMEOUT_MS = 25_000; // etwas großzügiger als das Backend-Timeout (20s)
 
 const mainEl = document.getElementById("app");
 const progressEl = document.getElementById("care-progress");
@@ -76,7 +76,7 @@ function computeCurrentLevelIndex() {
   return firstOpenIndex === -1 ? state.levels.length : firstOpenIndex;
 }
 
-/** Bereits bestaetigte Prompt-Teile fruehrer cumulative Level, in Reihenfolge. */
+/** Bereits bestätigte Prompt-Teile früherer cumulative Level, in Reihenfolge. */
 function getPriorSegments(level) {
   if (!level.cumulative) return [];
   return state.levels

@@ -460,9 +460,9 @@ button {
 }
 
 .btn-primary {
-  /* Verlauf bewusst dunkler als --ki-lab-blue: weisser Text braucht ueberall im
+  /* Verlauf bewusst dunkler als --ki-lab-blue: weißer Text braucht überall im
      Verlauf mind. 4.5:1 Kontrast (WCAG AA), das helle Markenblau alleine reicht
-     dafuer am oberen Verlaufsende nicht (~3.5:1). */
+     dafür am oberen Verlaufsende nicht (~3.5:1). */
   background: linear-gradient(135deg, #2367ab, #164f8f);
   color: #fff;
   display: inline-flex;

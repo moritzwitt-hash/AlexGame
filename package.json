@@ -2,7 +2,7 @@
   "name": "care-game",
   "private": true,
   "version": "0.1.0",
-  "description": "CARE-Prompting-Lernspiel fuer TCW Fuehrungskraefte-Training",
+  "description": "CARE-Prompting-Lernspiel für TCW Führungskräfte-Training",
   "scripts": {
     "dev": "wrangler dev",
     "deploy": "wrangler deploy",

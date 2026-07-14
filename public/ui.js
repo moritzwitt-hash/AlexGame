@@ -1,9 +1,9 @@
 // Reine Render-Funktionen (DOM-Updates) -- siehe PLAN Abschnitt 3.
-// Enthaelt KEINE Spiellogik/State-Machine (das lebt in app.js) und KEINE
-// fetch()-Aufrufe. Event-Handler werden als Callback-Funktionen uebergeben.
+// Enthält KEINE Spiellogik/State-Machine (das lebt in app.js) und KEINE
+// fetch()-Aufrufe. Event-Handler werden als Callback-Funktionen übergeben.
 // Plain globale Funktionen (kein ES-Module-Script), damit das Spiel ohne
-// Build-Schritt auch auf aelteren Browsern laeuft (siehe PLAN Abschnitt 9,
-// offene Frage Browser-Kompatibilitaet).
+// Build-Schritt auch auf älteren Browsern läuft (siehe PLAN Abschnitt 9,
+// offene Frage Browser-Kompatibilität).
 
 const DOT_LOADER = '<span class="dot-loader"><span></span><span></span><span></span></span>';
 
@@ -74,7 +74,7 @@ function renderLevelCard(container, level, viewState, handlers) {
     `
     : "";
   const textareaPlaceholder = hasPrior
-    ? "Ergaenze den naechsten Teil ..."
+    ? "Ergänze den nächsten Teil ..."
     : "Schreib deinen Prompt an Alex ...";
   const textareaSizeClass = level.careLetter === "BOSS" ? " prompt-input-large" : "";
 
@@ -157,13 +157,13 @@ function renderLevelCard(container, level, viewState, handlers) {
 function renderPromptRecap(container, fullPrompt, onContinue) {
   container.innerHTML = `
     <div class="level-card recap-card">
-      <h2 class="level-title">Das ist dein vollstaendiger Prompt</h2>
+      <h2 class="level-title">Das ist dein vollständiger Prompt</h2>
       <p class="level-intro">
-        Stueck fuer Stueck aufgebaut: Kontext, eine klare Ask, Regeln und ein Beispiel,
+        Stück für Stück aufgebaut: Kontext, eine klare Ask, Regeln und ein Beispiel,
         alles zusammen in einem Prompt.
       </p>
       <div class="prompt-so-far">
-        <div class="prompt-so-far-label">Dein vollstaendiger Prompt</div>
+        <div class="prompt-so-far-label">Dein vollständiger Prompt</div>
         <div class="prompt-so-far-text">${escapeHtml(fullPrompt)}</div>
       </div>
       <div class="actions">

@@ -4,7 +4,7 @@
 // Cloudflare-Pages-Functions vor (Datei-basiertes Routing unter functions/).
 // Beim ersten Deploy stellte sich heraus, dass Git-Integration inzwischen
 // über "Workers Builds" läuft, das dieses Datei-Routing NICHT unterstützt
-// (`wrangler pages functions build` waere ein Kompatibilitaets-Shim, aber
+// (`wrangler pages functions build` wäre ein Kompatibilitäts-Shim, aber
 // Cloudflare empfiehlt einen expliziten Worker-Entry-Point). Deshalb dieser
 // eine fetch()-Handler: routet die zwei API-Endpunkte selbst, alles andere
 // geht an das ASSETS-Binding (statische Dateien aus public/, siehe
