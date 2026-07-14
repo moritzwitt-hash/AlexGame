@@ -76,6 +76,7 @@ function renderLevelCard(container, level, viewState, handlers) {
   const textareaPlaceholder = hasPrior
     ? "Ergaenze den naechsten Teil ..."
     : "Schreib deinen Prompt an Alex ...";
+  const textareaSizeClass = level.careLetter === "BOSS" ? " prompt-input-large" : "";
 
   container.innerHTML = `
     <div class="level-card">
@@ -89,7 +90,7 @@ function renderLevelCard(container, level, viewState, handlers) {
 
       <textarea
         id="prompt-input"
-        class="prompt-input"
+        class="prompt-input${textareaSizeClass}"
         placeholder="${textareaPlaceholder}"
         ${loading ? "disabled" : ""}
       ></textarea>

@@ -427,6 +427,10 @@ body {
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
+.prompt-input-large {
+  min-height: 240px;
+}
+
 .prompt-input::placeholder {
   color: var(--text-muted);
 }
