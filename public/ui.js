@@ -80,7 +80,19 @@ function renderLevelCard(container, level, viewState, handlers) {
     ? `
       <div class="prompt-so-far">
         <div class="prompt-so-far-label">Dein Prompt bisher</div>
-        <div class="prompt-so-far-text">${escapeHtml(priorSegments.join(" "))}</div>
+        ${priorSegments
+          .map(
+            (entry) => `
+              <div class="prompt-so-far-entry">
+                <div class="prompt-so-far-tag">
+                  <span class="prompt-so-far-letter">${escapeHtml(entry.careLetter)}</span>
+                  ${escapeHtml(entry.title)}
+                </div>
+                <div class="prompt-so-far-text">${escapeHtml(entry.text)}</div>
+              </div>
+            `
+          )
+          .join("")}
       </div>
     `
     : "";

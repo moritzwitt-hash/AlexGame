@@ -81,13 +81,17 @@ function computeCurrentLevelIndex() {
   return firstOpenIndex === -1 ? state.levels.length : firstOpenIndex;
 }
 
-/** Bereits bestätigte Prompt-Teile früherer cumulative Level, in Reihenfolge. */
-function getPriorSegments(level) {
+/**
+ * Bereits bestätigte Prompt-Teile früherer cumulative Level, in Reihenfolge,
+ * inklusive Level-Titel/CARE-Buchstabe -- damit im UI erkennbar ist, welcher
+ * Teil aus welchem Level stammt (siehe ui.js renderLevelCard).
+ */
+function getPriorSegmentEntries(level) {
   if (!level.cumulative) return [];
   return state.levels
     .filter((l) => l.cumulative && l.order < level.order)
-    .map((l) => state.promptSegments[l.id])
-    .filter(Boolean);
+    .map((l) => ({ careLetter: l.careLetter, title: l.title, text: state.promptSegments[l.id] }))
+    .filter((entry) => Boolean(entry.text));
 }
 
 function isLastCumulativeLevel(level) {
@@ -126,7 +130,7 @@ function render() {
   renderLevelCard(
     mainEl,
     level,
-    { ...viewState, priorSegments: getPriorSegments(level) },
+    { ...viewState, priorSegments: getPriorSegmentEntries(level) },
     { onSubmit: handleSubmit, onRetry: handleRetry, onNext: handleNext, onReveal: handleReveal }
   );
 }
@@ -144,7 +148,7 @@ function handleReveal() {
 
 function handleReset() {
   const confirmed = window.confirm(
-    "Fortschritt wirklich zurücksetzen? Du springst zurück zu Level 1, der gesamte Fortschritt geht dabei verloren."
+    "Fortschritt wirklich zurücksetzen? Du springst zurück zum Anfang mit der Spielerklärung, der gesamte Fortschritt geht dabei verloren."
   );
   if (!confirmed) return;
 
@@ -153,6 +157,7 @@ function handleReset() {
   state.promptSegments = {};
   state.recapPrompt = null;
   state.currentLevelIndex = 0;
+  state.hasStarted = false;
   viewState = resetViewState();
   persist();
   render();
@@ -171,7 +176,7 @@ async function handleSubmit(promptText) {
   viewState.error = null;
   render();
 
-  const priorSegments = getPriorSegments(level);
+  const priorSegments = getPriorSegmentEntries(level).map((entry) => entry.text);
   const fullPrompt = priorSegments.length ? [...priorSegments, trimmed].join(" ") : trimmed;
 
   await sendAttempt(level, fullPrompt, trimmed);
@@ -183,7 +188,7 @@ async function handleRetry() {
   viewState.error = null;
   render();
 
-  const priorSegments = getPriorSegments(level);
+  const priorSegments = getPriorSegmentEntries(level).map((entry) => entry.text);
   const fullPrompt = priorSegments.length
     ? [...priorSegments, lastNewSegment].join(" ")
     : lastNewSegment;
@@ -196,9 +201,9 @@ function handleNext() {
   viewState = resetViewState();
 
   if (isLastCumulativeLevel(finishedLevel)) {
-    const allSegments = getPriorSegments(finishedLevel).concat(
-      state.promptSegments[finishedLevel.id] ?? ""
-    );
+    const allSegments = getPriorSegmentEntries(finishedLevel)
+      .map((entry) => entry.text)
+      .concat(state.promptSegments[finishedLevel.id] ?? "");
     state.recapPrompt = allSegments.filter(Boolean).join(" ");
     render();
     return;

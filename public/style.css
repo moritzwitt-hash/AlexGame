@@ -498,6 +498,37 @@ body.layout-solo .sidebar {
   white-space: pre-wrap;
 }
 
+.prompt-so-far-entry + .prompt-so-far-entry {
+  margin-top: 0.85rem;
+  padding-top: 0.85rem;
+  border-top: 1px dashed var(--border);
+}
+
+.prompt-so-far-tag {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--ki-lab-blue-soft);
+  margin-bottom: 0.4rem;
+}
+
+.prompt-so-far-letter {
+  flex: none;
+  width: 1.3rem;
+  height: 1.3rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.65rem;
+  font-weight: 700;
+  border: 1.5px solid var(--border-strong);
+  background: rgba(47, 140, 230, 0.1);
+  color: var(--ki-lab-blue-soft);
+}
+
 .recap-card {
   border-color: var(--ki-lab-blue);
   box-shadow: 0 20px 60px -20px rgba(0, 0, 0, 0.6), 0 0 40px -10px var(--ki-lab-blue-glow);
