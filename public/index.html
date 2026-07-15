@@ -14,7 +14,10 @@
     <div class="brand">
       <img src="assets/logo.png" alt="KI Lab" class="brand-logo" />
     </div>
-    <nav class="care-progress" id="care-progress" aria-label="Fortschritt"></nav>
+    <div class="header-right">
+      <nav class="care-progress" id="care-progress" aria-label="Fortschritt"></nav>
+      <button id="reset-btn" class="btn-secondary btn-reset" title="Fortschritt zurücksetzen">↺ Neu starten</button>
+    </div>
   </header>
 
   <div class="layout">
@@ -39,7 +42,7 @@
       <h2 class="sidebar-title">Das CARE-Framework</h2>
       <ul class="care-glossary">
         <li>
-          <span class="care-badge">C</span>
+          <span class="care-badge" data-letter="C">C</span>
           <div>
             <strong>Context</strong>
             <p>Hintergrund, Ziel und das Warum, dazu wer die KI sein soll, also in wessen Rolle oder Lage sie sich versetzen soll.</p>
@@ -47,7 +50,7 @@
           </div>
         </li>
         <li>
-          <span class="care-badge">A</span>
+          <span class="care-badge" data-letter="A">A</span>
           <div>
             <strong>Ask</strong>
             <p>Die konkrete Aufgabe. Nummerier die Schritte, wenn die Reihenfolge wichtig ist.</p>
@@ -55,7 +58,7 @@
           </div>
         </li>
         <li>
-          <span class="care-badge">R</span>
+          <span class="care-badge" data-letter="R">R</span>
           <div>
             <strong>Rules</strong>
             <p>Format, Länge, Ton und alle Einschränkungen.</p>
@@ -63,7 +66,7 @@
           </div>
         </li>
         <li>
-          <span class="care-badge">E</span>
+          <span class="care-badge" data-letter="E">E</span>
           <div>
             <strong>Examples</strong>
             <p>Zeig 1 bis 3 Beispiele, wie das Ergebnis aussehen soll, statt es nur zu beschreiben.</p>

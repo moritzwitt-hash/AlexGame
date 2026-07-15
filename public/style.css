@@ -98,9 +98,21 @@ body {
   display: block;
 }
 
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
 .care-progress {
   display: flex;
   gap: 0.6rem;
+}
+
+.btn-reset {
+  padding: 0.4rem 0.85rem;
+  font-size: 0.8rem;
+  font-weight: 600;
 }
 
 .care-step {
@@ -240,6 +252,13 @@ body {
   border: 1.5px solid var(--border-strong);
   background: rgba(47, 140, 230, 0.1);
   color: var(--ki-lab-blue-soft);
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.care-badge.current {
+  border-color: var(--ki-lab-blue);
+  box-shadow: 0 0 12px 0 var(--ki-lab-blue-glow);
+  animation: glowPulse 2.2s ease-in-out infinite;
 }
 
 .care-example {
@@ -265,6 +284,19 @@ body {
   .sidebar {
     position: static;
   }
+}
+
+body.layout-solo .layout {
+  grid-template-columns: 1fr;
+  max-width: 640px;
+}
+
+body.layout-solo .sidebar {
+  display: none;
+}
+
+.welcome-card {
+  animation: fadeInUp 0.35s ease-out;
 }
 
 .loading {

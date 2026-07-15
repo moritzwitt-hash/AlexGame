@@ -25,6 +25,37 @@ function renderLoading(container) {
   container.innerHTML = `<div class="loading">${DOT_LOADER}<span>Level werden geladen</span></div>`;
 }
 
+/** Erster Screen vor Level 1: erklärt Alex und den Ablauf, bevor es losgeht. */
+function renderWelcomeScreen(container, onStart) {
+  container.innerHTML = `
+    <div class="level-card welcome-card">
+      <h2 class="level-title">Wer ist Alex?</h2>
+      <p class="level-intro">Alex ist der neue Werkstudent. Hochbegabt, aber komplett neu im Unternehmen. Er denkt scharf nach, sobald er eine Aufgabe verstanden hat, nimmt aber alles beim Wort.</p>
+      <p class="level-intro">Sagst du ihm nicht genau, was du willst, füllt er die Lücken auf seine Art. Meistens nicht so, wie du es meinst.</p>
+      <div class="sidebar-divider"></div>
+      <h3 class="sidebar-subtitle">So läuft's</h3>
+      <ol class="sidebar-steps">
+        <li>Du schreibst Alex eine Anweisung.</li>
+        <li>Er antwortet sofort, genau wie du es formulierst.</li>
+        <li>Passt es noch nicht, bekommst du einen Tipp und probierst es nochmal.</li>
+      </ol>
+      <div class="actions">
+        <button id="start-btn" class="btn-primary">Spiel starten</button>
+      </div>
+    </div>
+  `;
+
+  container.querySelector("#start-btn").addEventListener("click", onStart);
+}
+
+/** Hebt in der rechten CARE-Sidebar den Buchstaben hervor, der zum aktuellen Level passt. */
+function syncCareGlossary(careLetter) {
+  document.querySelectorAll(".care-badge[data-letter]").forEach((badge) => {
+    const isActive = careLetter === "ALL" || badge.dataset.letter === careLetter;
+    badge.classList.toggle("current", Boolean(careLetter) && isActive);
+  });
+}
+
 function renderFinished(container) {
   container.innerHTML = `
     <div class="level-card finished-card">
@@ -42,7 +73,7 @@ function renderFinished(container) {
  * handlers: { onSubmit(promptText), onRetry() }
  */
 function renderLevelCard(container, level, viewState, handlers) {
-  const { loading, alexResponse, pass, hint, error, retryable, draft, priorSegments } = viewState;
+  const { loading, alexResponse, pass, hint, error, retryable, draft, priorSegments, revealed } = viewState;
 
   const hasPrior = Array.isArray(priorSegments) && priorSegments.length > 0;
   const priorBlock = hasPrior
@@ -78,16 +109,8 @@ function renderLevelCard(container, level, viewState, handlers) {
     : "Schreib deinen Prompt an Alex ...";
   const textareaSizeClass = level.careLetter === "BOSS" ? " prompt-input-large" : "";
 
-  container.innerHTML = `
-    <div class="level-card">
-      <h2 class="level-title">${escapeHtml(level.title)}</h2>
-      <p class="level-intro">${escapeHtml(level.introText)}</p>
-      <p class="level-goal">${escapeHtml(level.goalText)}</p>
-
-      ${emailBlock}
-      ${sourceMaterialBlock}
-      ${priorBlock}
-
+  const promptFormBlock = revealed
+    ? `
       <textarea
         id="prompt-input"
         class="prompt-input${textareaSizeClass}"
@@ -102,8 +125,31 @@ function renderLevelCard(container, level, viewState, handlers) {
       </div>
 
       <div id="result-area"></div>
+    `
+    : `
+      <div class="actions">
+        <button id="reveal-btn" class="btn-primary">Jetzt prompten</button>
+      </div>
+    `;
+
+  container.innerHTML = `
+    <div class="level-card">
+      <h2 class="level-title">${escapeHtml(level.title)}</h2>
+      <p class="level-intro">${escapeHtml(level.introText)}</p>
+      <p class="level-goal">${escapeHtml(level.goalText)}</p>
+
+      ${emailBlock}
+      ${sourceMaterialBlock}
+      ${priorBlock}
+
+      ${promptFormBlock}
     </div>
   `;
+
+  if (!revealed) {
+    container.querySelector("#reveal-btn").addEventListener("click", handlers.onReveal);
+    return;
+  }
 
   const textarea = container.querySelector("#prompt-input");
   if (draft) textarea.value = draft;

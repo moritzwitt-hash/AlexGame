@@ -15,11 +15,12 @@ const REQUEST_TIMEOUT_MS = 25_000; // etwas großzügiger als das Backend-Timeou
 
 const mainEl = document.getElementById("app");
 const progressEl = document.getElementById("care-progress");
+const resetBtn = document.getElementById("reset-btn");
 
 /**
  * @type {{levels: any[], currentLevelIndex: number, completed: Record<string, boolean>,
  *         attempts: Record<string, number>, promptSegments: Record<string, string>,
- *         recapPrompt: string|null}}
+ *         recapPrompt: string|null, hasStarted: boolean}}
  */
 let state = {
   levels: [],
@@ -28,9 +29,10 @@ let state = {
   attempts: {},
   promptSegments: {},
   recapPrompt: null,
+  hasStarted: false,
 };
 
-/** @type {{loading: boolean, alexResponse: string|null, pass: boolean|null, hint: string|null, error: string|null, retryable: boolean, draft: string}} */
+/** @type {{loading: boolean, alexResponse: string|null, pass: boolean|null, hint: string|null, error: string|null, retryable: boolean, draft: string, revealed: boolean}} */
 let viewState = resetViewState();
 
 function resetViewState() {
@@ -42,6 +44,7 @@ function resetViewState() {
     error: null,
     retryable: false,
     draft: "",
+    revealed: false,
   };
 }
 
@@ -54,6 +57,7 @@ function loadPersisted() {
       completed: parsed.completed ?? {},
       attempts: parsed.attempts ?? {},
       promptSegments: parsed.promptSegments ?? {},
+      hasStarted: parsed.hasStarted ?? false,
     };
   } catch {
     return null;
@@ -67,6 +71,7 @@ function persist() {
       completed: state.completed,
       attempts: state.attempts,
       promptSegments: state.promptSegments,
+      hasStarted: state.hasStarted,
     })
   );
 }
@@ -96,23 +101,61 @@ function render() {
     completed: state.completed,
   });
 
+  document.body.classList.toggle("layout-solo", !state.hasStarted);
+
+  if (!state.hasStarted) {
+    syncCareGlossary(null);
+    renderWelcomeScreen(mainEl, handleStartGame);
+    return;
+  }
+
   if (state.recapPrompt) {
+    syncCareGlossary("ALL");
     renderPromptRecap(mainEl, state.recapPrompt, handleRecapContinue);
     return;
   }
 
   if (state.currentLevelIndex >= state.levels.length) {
+    syncCareGlossary("ALL");
     renderFinished(mainEl);
     return;
   }
 
   const level = state.levels[state.currentLevelIndex];
+  syncCareGlossary(level.careLetter === "BOSS" ? "ALL" : level.careLetter);
   renderLevelCard(
     mainEl,
     level,
     { ...viewState, priorSegments: getPriorSegments(level) },
-    { onSubmit: handleSubmit, onRetry: handleRetry, onNext: handleNext }
+    { onSubmit: handleSubmit, onRetry: handleRetry, onNext: handleNext, onReveal: handleReveal }
   );
+}
+
+function handleStartGame() {
+  state.hasStarted = true;
+  persist();
+  render();
+}
+
+function handleReveal() {
+  viewState.revealed = true;
+  render();
+}
+
+function handleReset() {
+  const confirmed = window.confirm(
+    "Fortschritt wirklich zurücksetzen? Du springst zurück zu Level 1, der gesamte Fortschritt geht dabei verloren."
+  );
+  if (!confirmed) return;
+
+  state.completed = {};
+  state.attempts = {};
+  state.promptSegments = {};
+  state.recapPrompt = null;
+  state.currentLevelIndex = 0;
+  viewState = resetViewState();
+  persist();
+  render();
 }
 
 let lastNewSegment = "";
@@ -232,7 +275,10 @@ async function init() {
     state.completed = persisted.completed;
     state.attempts = persisted.attempts;
     state.promptSegments = persisted.promptSegments;
+    state.hasStarted = persisted.hasStarted;
   }
+
+  resetBtn.addEventListener("click", handleReset);
 
   try {
     const res = await fetch("/api/levels");
