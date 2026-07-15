@@ -182,11 +182,13 @@ body {
 
 .sidebar-toggle {
   flex: none;
-  width: 2.5rem;
+  width: auto;
   height: 2.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 0.5rem;
+  padding: 0 0.9rem;
   background: var(--surface);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
@@ -194,9 +196,11 @@ body {
   border-radius: 10px;
   cursor: pointer;
   color: var(--ki-lab-blue-soft);
+  font-family: var(--font);
 }
 
 .sidebar-toggle-chevron {
+  flex: none;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -204,6 +208,12 @@ body {
   font-size: 1.5rem;
   font-weight: 700;
   transition: transform 0.25s ease;
+}
+
+.sidebar-toggle-label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  white-space: nowrap;
 }
 
 .sidebar-panel:not(.is-collapsed) .sidebar-toggle-chevron {
