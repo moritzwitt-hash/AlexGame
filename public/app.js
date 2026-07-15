@@ -20,7 +20,8 @@ const resetBtn = document.getElementById("reset-btn");
 /**
  * @type {{levels: any[], currentLevelIndex: number, completed: Record<string, boolean>,
  *         attempts: Record<string, number>, promptSegments: Record<string, string>,
- *         recapPrompt: string|null, hasStarted: boolean}}
+ *         recapPrompt: Array<{careLetter: string, title: string, text: string}>|null,
+ *         hasStarted: boolean}}
  */
 let state = {
   levels: [],
@@ -201,10 +202,15 @@ function handleNext() {
   viewState = resetViewState();
 
   if (isLastCumulativeLevel(finishedLevel)) {
-    const allSegments = getPriorSegmentEntries(finishedLevel)
-      .map((entry) => entry.text)
-      .concat(state.promptSegments[finishedLevel.id] ?? "");
-    state.recapPrompt = allSegments.filter(Boolean).join(" ");
+    state.recapPrompt = getPriorSegmentEntries(finishedLevel)
+      .concat([
+        {
+          careLetter: finishedLevel.careLetter,
+          title: finishedLevel.title,
+          text: state.promptSegments[finishedLevel.id] ?? "",
+        },
+      ])
+      .filter((entry) => Boolean(entry.text));
     render();
     return;
   }

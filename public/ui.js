@@ -80,19 +80,7 @@ function renderLevelCard(container, level, viewState, handlers) {
     ? `
       <div class="prompt-so-far">
         <div class="prompt-so-far-label">Dein Prompt bisher</div>
-        ${priorSegments
-          .map(
-            (entry) => `
-              <div class="prompt-so-far-entry">
-                <div class="prompt-so-far-tag">
-                  <span class="prompt-so-far-letter">${escapeHtml(entry.careLetter)}</span>
-                  ${escapeHtml(entry.title)}
-                </div>
-                <div class="prompt-so-far-text">${escapeHtml(entry.text)}</div>
-              </div>
-            `
-          )
-          .join("")}
+        ${renderPromptEntries(priorSegments)}
       </div>
     `
     : "";
@@ -211,8 +199,25 @@ function renderLevelCard(container, level, viewState, handlers) {
   }
 }
 
+/** Rendert eine Liste von Prompt-Teilen, je mit CARE-Buchstabe und Level-Titel als Tag. */
+function renderPromptEntries(entries) {
+  return entries
+    .map(
+      (entry) => `
+        <div class="prompt-so-far-entry">
+          <div class="prompt-so-far-tag">
+            <span class="prompt-so-far-letter">${escapeHtml(entry.careLetter)}</span>
+            ${escapeHtml(entry.title)}
+          </div>
+          <div class="prompt-so-far-text">${escapeHtml(entry.text)}</div>
+        </div>
+      `
+    )
+    .join("");
+}
+
 /** Zeigt den fertig zusammengebauten Prompt nach dem letzten cumulative Level. */
-function renderPromptRecap(container, fullPrompt, onContinue) {
+function renderPromptRecap(container, entries, onContinue) {
   container.innerHTML = `
     <div class="level-card recap-card">
       <h2 class="level-title">Das ist dein vollständiger Prompt</h2>
@@ -222,7 +227,7 @@ function renderPromptRecap(container, fullPrompt, onContinue) {
       </p>
       <div class="prompt-so-far">
         <div class="prompt-so-far-label">Dein vollständiger Prompt</div>
-        <div class="prompt-so-far-text">${escapeHtml(fullPrompt)}</div>
+        ${renderPromptEntries(entries)}
       </div>
       <div class="actions">
         <button id="recap-continue-btn" class="btn-primary">Weiter zum Boss-Level →</button>
