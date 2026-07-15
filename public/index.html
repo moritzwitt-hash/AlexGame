@@ -21,59 +21,75 @@
   </header>
 
   <div class="layout">
-    <aside class="sidebar">
-      <h2 class="sidebar-title">Wer ist Alex?</h2>
-      <p>Alex ist der neue Werkstudent. Hochbegabt, aber komplett neu im Unternehmen. Er denkt scharf nach, sobald er eine Aufgabe verstanden hat, nimmt aber alles beim Wort.</p>
-      <p>Sagst du ihm nicht genau, was du willst, füllt er die Lücken auf seine Art. Meistens nicht so, wie du es meinst.</p>
-      <div class="sidebar-divider"></div>
-      <h3 class="sidebar-subtitle">So läuft's</h3>
-      <ol class="sidebar-steps">
-        <li>Du schreibst Alex eine Anweisung.</li>
-        <li>Er antwortet sofort, genau wie du es formulierst.</li>
-        <li>Passt es noch nicht, bekommst du einen Tipp und probierst es nochmal.</li>
-      </ol>
+    <aside class="sidebar sidebar-left">
+      <div class="sidebar-panel is-collapsed" id="sidebar-panel-left">
+        <button type="button" class="sidebar-handle" id="sidebar-toggle-left" aria-expanded="false">
+          <span class="sidebar-handle-icon">?</span>
+          <span class="sidebar-handle-label">Wer ist Alex?</span>
+          <span class="sidebar-handle-chevron">›</span>
+        </button>
+        <div class="sidebar-panel-body">
+          <p>Alex ist der neue Werkstudent. Hochbegabt, aber komplett neu im Unternehmen. Er denkt scharf nach, sobald er eine Aufgabe verstanden hat, nimmt aber alles beim Wort.</p>
+          <p>Sagst du ihm nicht genau, was du willst, füllt er die Lücken auf seine Art. Meistens nicht so, wie du es meinst.</p>
+          <div class="sidebar-divider"></div>
+          <h3 class="sidebar-subtitle">So läuft's</h3>
+          <ol class="sidebar-steps">
+            <li>Du schreibst Alex eine Anweisung.</li>
+            <li>Er antwortet sofort, genau wie du es formulierst.</li>
+            <li>Passt es noch nicht, bekommst du einen Tipp und probierst es nochmal.</li>
+          </ol>
+        </div>
+      </div>
     </aside>
 
     <main id="app" class="app-main">
       <p class="loading">Lade Level ...</p>
     </main>
 
-    <aside class="sidebar sidebar-care">
-      <h2 class="sidebar-title">Das CARE-Framework</h2>
-      <ul class="care-glossary">
-        <li>
-          <span class="care-badge" data-letter="C">C</span>
-          <div>
-            <strong>Context</strong>
-            <p>Hintergrund, Ziel und das Warum, dazu wer die KI sein soll, also in wessen Rolle oder Lage sie sich versetzen soll.</p>
-            <p class="care-example">"Du bist Leiter des Operations-Teams und bereitest ein Update für die Geschäftsführung vor."</p>
-          </div>
-        </li>
-        <li>
-          <span class="care-badge" data-letter="A">A</span>
-          <div>
-            <strong>Ask</strong>
-            <p>Die konkrete Aufgabe. Nummerier die Schritte, wenn die Reihenfolge wichtig ist.</p>
-            <p class="care-example">"1) Fasse zusammen 2) Liste 3 Risiken 3) Gib eine Empfehlung."</p>
-          </div>
-        </li>
-        <li>
-          <span class="care-badge" data-letter="R">R</span>
-          <div>
-            <strong>Rules</strong>
-            <p>Format, Länge, Ton und alle Einschränkungen.</p>
-            <p class="care-example">"Maximal 5 Stichpunkte, förmlicher Ton."</p>
-          </div>
-        </li>
-        <li>
-          <span class="care-badge" data-letter="E">E</span>
-          <div>
-            <strong>Examples</strong>
-            <p>Zeig 1 bis 3 Beispiele, wie das Ergebnis aussehen soll, statt es nur zu beschreiben.</p>
-            <p class="care-example">"Zum Beispiel so: 'Umsatz Q3 stieg um 8 Prozent...'"</p>
-          </div>
-        </li>
-      </ul>
+    <aside class="sidebar sidebar-right sidebar-care">
+      <div class="sidebar-panel is-collapsed" id="sidebar-panel-right">
+        <button type="button" class="sidebar-handle" id="sidebar-toggle-right" aria-expanded="false">
+          <span class="sidebar-handle-chevron">‹</span>
+          <span class="sidebar-handle-label">CARE-Framework</span>
+          <span class="sidebar-handle-icon">i</span>
+        </button>
+        <div class="sidebar-panel-body">
+          <ul class="care-glossary">
+            <li>
+              <span class="care-badge" data-letter="C">C</span>
+              <div>
+                <strong>Context</strong>
+                <p>Hintergrund, Ziel und das Warum, dazu wer die KI sein soll, also in wessen Rolle oder Lage sie sich versetzen soll.</p>
+                <p class="care-example">"Du bist Leiter des Operations-Teams und bereitest ein Update für die Geschäftsführung vor."</p>
+              </div>
+            </li>
+            <li>
+              <span class="care-badge" data-letter="A">A</span>
+              <div>
+                <strong>Ask</strong>
+                <p>Die konkrete Aufgabe. Nummerier die Schritte, wenn die Reihenfolge wichtig ist.</p>
+                <p class="care-example">"1) Fasse zusammen 2) Liste 3 Risiken 3) Gib eine Empfehlung."</p>
+              </div>
+            </li>
+            <li>
+              <span class="care-badge" data-letter="R">R</span>
+              <div>
+                <strong>Rules</strong>
+                <p>Format, Länge, Ton und alle Einschränkungen.</p>
+                <p class="care-example">"Maximal 5 Stichpunkte, förmlicher Ton."</p>
+              </div>
+            </li>
+            <li>
+              <span class="care-badge" data-letter="E">E</span>
+              <div>
+                <strong>Examples</strong>
+                <p>Zeig 1 bis 3 Beispiele, wie das Ergebnis aussehen soll, statt es nur zu beschreiben.</p>
+                <p class="care-example">"Zum Beispiel so: 'Umsatz Q3 stieg um 8 Prozent...'"</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
     </aside>
   </div>
 

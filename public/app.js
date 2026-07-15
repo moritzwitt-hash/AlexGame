@@ -267,6 +267,19 @@ async function sendAttempt(level, fullPrompt, newSegment) {
   }
 }
 
+/** Ein-/ausklappbare Sidebars: rein optisch, unabhängig vom Spielstand, daher nicht persistiert. */
+function setupSidebarToggles() {
+  [
+    { btn: document.getElementById("sidebar-toggle-left"), panel: document.getElementById("sidebar-panel-left") },
+    { btn: document.getElementById("sidebar-toggle-right"), panel: document.getElementById("sidebar-panel-right") },
+  ].forEach(({ btn, panel }) => {
+    btn.addEventListener("click", () => {
+      const collapsed = panel.classList.toggle("is-collapsed");
+      btn.setAttribute("aria-expanded", String(!collapsed));
+    });
+  });
+}
+
 async function init() {
   renderLoading(mainEl);
 
@@ -279,6 +292,7 @@ async function init() {
   }
 
   resetBtn.addEventListener("click", handleReset);
+  setupSidebarToggles();
 
   try {
     const res = await fetch("/api/levels");

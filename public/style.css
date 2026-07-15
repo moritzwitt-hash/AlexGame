@@ -157,13 +157,115 @@ body {
 .sidebar {
   position: sticky;
   top: 5.5rem;
+  display: flex;
+}
+
+/* Panel sitzt in einem festbreiten Slot (siehe .layout grid-template-columns),
+   damit der Hauptinhalt beim Ein-/Ausklappen nie die Position wechselt. Beim
+   Aufklappen wächst die Breite von der Innenkante (nahe Hauptinhalt) nach
+   außen: links hängt der Panel per margin-left:auto an seiner rechten
+   Kante fest, rechts hängt er per Default-Blockverhalten an seiner linken
+   Kante fest. */
+.sidebar-panel {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
   background: var(--surface);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 1.5rem;
   animation: fadeInUp 0.35s ease-out;
+  overflow: hidden;
+  transition: width 0.32s ease;
+}
+
+.sidebar-panel.is-collapsed {
+  width: 3rem;
+}
+
+.sidebar-left .sidebar-panel {
+  margin-left: auto;
+}
+
+.sidebar-handle {
+  flex: none;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.9rem 1rem;
+  background: none;
+  border: none;
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+  color: var(--ki-lab-blue-soft);
+  font-family: var(--font);
+  text-align: left;
+}
+
+.sidebar-panel.is-collapsed .sidebar-handle {
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  padding: 1rem 0;
+  border-bottom: none;
+}
+
+.sidebar-handle-icon {
+  flex: none;
+  width: 1.6rem;
+  height: 1.6rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: 700;
+  border: 1.5px solid var(--border-strong);
+  background: rgba(47, 140, 230, 0.1);
+}
+
+.sidebar-handle-label {
+  flex: 1;
+  font-size: 0.85rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.sidebar-panel.is-collapsed .sidebar-handle-label {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  flex: none;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.sidebar-handle-chevron {
+  flex: none;
+  font-size: 1rem;
+  color: var(--text-muted);
+  transition: transform 0.25s ease;
+}
+
+.sidebar-panel:not(.is-collapsed) .sidebar-handle-chevron {
+  transform: rotate(90deg);
+}
+
+.sidebar-panel-body {
+  flex: none;
+  padding: 1.25rem 1.5rem 1.5rem;
+}
+
+/* Feste Breite (statt 100%) verhindert, dass der Textinhalt während der
+   Breiten-Animation des Panels mitreflowt -- stattdessen wird er vom
+   overflow:hidden des Panels sauber auf- bzw. zugedeckt. */
+.sidebar-left .sidebar-panel-body {
+  width: 288px;
+}
+
+.sidebar-right .sidebar-panel-body {
+  width: 298px;
 }
 
 .sidebar-title {
