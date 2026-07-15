@@ -11,7 +11,10 @@
 // Recap-Screen, der den fertigen Prompt zeigt, bevor es zum Boss-Level geht.
 
 const STORAGE_KEY = "care_game_state_v2";
-const REQUEST_TIMEOUT_MS = 25_000; // etwas großzügiger als das Backend-Timeout (20s)
+// /api/attempt macht zwei sequentielle OpenAI-Calls (Alex + Judge), je bis zu 20s
+// Backend-Timeout plus 1 möglicher Retry -- 45s gibt realistisch genug Puffer,
+// ohne dass Nutzer bei einer echt hängenden Anfrage ewig warten.
+const REQUEST_TIMEOUT_MS = 45_000;
 
 const mainEl = document.getElementById("app");
 const progressEl = document.getElementById("care-progress");
